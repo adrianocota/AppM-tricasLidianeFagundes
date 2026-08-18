@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#8E1013">
+<title>Métricas · Lidiane Fagundes Advogada</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icone.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vinho:#8E1013;
+  --vinho-esc:#5C0A0C;
+  --areia:#F2CFA3;
+  --areia-clara:#FBF1E4;
+  --tinta:#2E2A28;
+  --tinta-med:#6B635E;
+  --tinta-fraca:#9C938D;
+  --papel:#FFFDFA;
+  --linha:#E8DFD4;
+  --verde:#1F7A5C;
+  --alerta:#B45309;
+  --r:10px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--areia-clara);
+  color:var(--tinta);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:15px;line-height:1.5;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.num{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;letter-spacing:-.01em;font-variant-numeric:lining-nums}
+.wrap{max-width:520px;margin:0 auto;background:var(--papel);min-height:100vh;box-shadow:0 0 40px rgba(92,10,12,.06)}
+
+header{background:var(--vinho);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20}
+.marca{display:flex;align-items:center;gap:10px}
+.selo{width:34px;height:34px;border-radius:9px 3px 9px 3px;background:var(--areia);color:var(--vinho-esc);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px;letter-spacing:.02em}
+.marca b{color:#fff;font-weight:500;font-size:14px;letter-spacing:.06em;text-transform:uppercase;display:block;line-height:1.2}
+.marca span{color:var(--areia);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+
+nav{display:flex;background:var(--vinho);padding:0 10px;position:sticky;top:66px;z-index:19}
+nav button{flex:1;background:none;border:0;color:rgba(255,255,255,.62);font-family:inherit;font-size:12.5px;letter-spacing:.03em;padding:11px 4px 12px;cursor:pointer;border-bottom:2px solid transparent;transition:color .15s}
+nav button[aria-selected="true"]{color:#fff;border-bottom-color:var(--areia)}
+nav button:focus-visible{outline:2px solid var(--areia);outline-offset:-3px}
+
+main{padding:18px}
+.aba{display:none}
+.aba.on{display:block;animation:sobe .22s ease}
+@keyframes sobe{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.olho{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta-fraca);margin:0 0 10px}
+.olho.sep{padding-top:22px;margin-top:22px;border-top:1px solid var(--linha)}
+
+.grade{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cel{background:var(--areia-clara);border-radius:var(--r);padding:13px 14px}
+.cel p{margin:0;font-size:11.5px;color:var(--tinta-med);letter-spacing:.02em}
+.cel strong{display:block;font-size:27px;line-height:1.15;margin-top:3px}
+.cel.destaque{background:var(--vinho);color:#fff;grid-column:1/-1}
+.cel.destaque p{color:var(--areia)}
+.cel.destaque strong{font-size:38px}
+.cel small{display:block;font-size:11px;color:var(--tinta-fraca);margin-top:3px}
+.cel.destaque small{color:rgba(255,255,255,.72)}
+
+.aviso{border-radius:var(--r);padding:12px 14px;font-size:12.5px;line-height:1.5;margin:14px 0}
+.aviso.info{background:var(--areia-clara);color:var(--tinta-med);border-left:3px solid var(--areia)}
+.aviso.atencao{background:#FDF4E7;color:var(--alerta);border-left:3px solid var(--alerta)}
+
+.acoes{display:flex;gap:9px;margin-top:16px}
+button.b{flex:1;font-family:inherit;font-size:13.5px;font-weight:500;padding:13px;border-radius:var(--r);cursor:pointer;border:1px solid var(--vinho);transition:opacity .15s}
+button.b.cheio{background:var(--vinho);color:#fff}
+button.b.vazio{background:transparent;color:var(--vinho)}
+button.b:hover{opacity:.85}
+button.b:focus-visible{outline:2px solid var(--vinho);outline-offset:2px}
+
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--linha)}
+.item:last-child{border-bottom:0}
+.item h4{margin:0;font-size:14.5px;font-weight:500}
+.item p{margin:2px 0 0;font-size:11.5px;color:var(--tinta-fraca)}
+.item .dir{text-align:right;white-space:nowrap}
+.item .dir b{font-size:15px;font-weight:500}
+.item .dir em{display:block;font-style:normal;font-size:11.5px;color:var(--verde);margin-top:2px}
+.item.vazio h4{color:var(--tinta-fraca)}
+.item.vazio p{color:var(--vinho)}
+.mini{background:none;border:1px solid var(--linha);color:var(--vinho);font-family:inherit;font-size:12px;padding:7px 13px;border-radius:var(--r);cursor:pointer}
+.mini:hover{border-color:var(--vinho)}
+.lixo{background:none;border:0;color:var(--tinta-fraca);font-size:17px;cursor:pointer;padding:4px 6px;line-height:1}
+.lixo:hover{color:var(--vinho)}
+
+.nada{text-align:center;padding:44px 18px;color:var(--tinta-fraca)}
+.nada strong{display:block;font-size:20px;color:var(--tinta);margin-bottom:6px;font-weight:500}
+.nada p{margin:0;font-size:13px;line-height:1.6}
+
+.graf{display:flex;align-items:flex-end;gap:7px;height:150px;margin-bottom:7px}
+.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.col span{font-size:10.5px;color:var(--tinta-med);margin-bottom:4px;white-space:nowrap}
+.col i{display:block;width:100%;background:#C97B72;border-radius:3px 3px 0 0;font-style:normal;transition:height .4s ease}
+.col.top i{background:var(--vinho)}
+.col.zero i{background:var(--linha)}
+.col.zero span{color:var(--tinta-fraca)}
+.eixo{display:flex;gap:7px}
+.eixo span{flex:1;text-align:center;font-size:10.5px;color:var(--tinta-fraca)}
+.eixo.invest span{color:var(--tinta-med)}
+.legenda{font-size:10.5px;color:var(--tinta-fraca);text-align:center;margin:6px 0 0}
+
+.resumo{background:var(--areia-clara);border-radius:var(--r);padding:14px;margin-top:18px}
+.resumo div{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}
+.resumo div span{color:var(--tinta-med)}
+.resumo div b{font-weight:500}
+.resumo div.forte{border-top:1px solid var(--linha);margin-top:6px;padding-top:9px}
+.resumo div.forte b{color:var(--verde);font-size:15px}
+
+.barra-linha{display:flex;align-items:center;gap:10px}
+.barra{flex:1;height:7px;background:var(--areia-clara);border-radius:4px;overflow:hidden}
+.barra i{display:block;height:100%;background:#C97B72;border-radius:4px}
+
+.fundo{position:fixed;inset:0;background:rgba(46,42,40,.5);display:flex;align-items:flex-end;justify-content:center;z-index:50;opacity:0;pointer-events:none;transition:opacity .2s}
+.fundo.on{opacity:1;pointer-events:auto}
+.folha{background:var(--papel);width:100%;max-width:520px;max-height:92vh;overflow-y:auto;border-radius:16px 16px 0 0;transform:translateY(18px);transition:transform .22s}
+.fundo.on .folha{transform:none}
+.folha header{border-radius:16px 16px 0 0}
+.folha .corpo{padding:18px}
+
+label{display:block;font-size:12px;color:var(--tinta-med);margin-bottom:5px;letter-spacing:.02em}
+input,select{width:100%;font-family:inherit;font-size:16px;color:var(--tinta);background:var(--papel);border:1px solid var(--linha);border-radius:var(--r);padding:11px 12px}
+input:focus,select:focus{outline:0;border-color:var(--vinho)}
+.campo{margin-bottom:14px}
+.par{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.dica{font-size:11px;color:var(--tinta-fraca);margin:5px 0 0}
+.fichas{display:flex;flex-wrap:wrap;gap:7px}
+.ficha{border:1px solid var(--linha);background:var(--papel);color:var(--tinta-med);font-family:inherit;font-size:12.5px;padding:8px 14px;border-radius:var(--r);cursor:pointer}
+.ficha[aria-pressed="true"]{background:var(--vinho);border-color:var(--vinho);color:#fff}
+.previa{background:var(--areia-clara);border-radius:var(--r);padding:12px;font-size:12.5px;color:var(--tinta-med);line-height:1.5;margin-bottom:14px}
+.previa b{color:var(--tinta);font-weight:500}
+.erro{color:var(--vinho);font-size:12.5px;margin:0 0 12px;display:none}
+.erro.on{display:block}
+.carregando{text-align:center;padding:60px 20px;color:var(--tinta-fraca);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="marca">
+      <div class="selo">LF</div>
+      <div><b>Lidiane Fagundes</b><span>Métricas</span></div>
+    </div>
+  </header>
+
+  <nav role="tablist">
+    <button role="tab" aria-selected="true" data-aba="painel">Painel</button>
+    <button role="tab" aria-selected="false" data-aba="meses">Meses</button>
+    <button role="tab" aria-selected="false" data-aba="contratos">Contratos</button>
+    <button role="tab" aria-selected="false" data-aba="evolucao">Evolução</button>
+    <button role="tab" aria-selected="false" data-aba="dados">Cópia</button>
+  </nav>
+
+  <main>
+    <div id="carregando" class="carregando">Carregando seus lançamentos…</div>
+    <section class="aba" id="ab-painel"></section>
+    <section class="aba" id="ab-meses"></section>
+    <section class="aba" id="ab-contratos"></section>
+    <section class="aba" id="ab-evolucao"></section>
+    <section class="aba" id="ab-dados"></section>
+  </main>
+</div>
+
+<div class="fundo" id="modal">
+  <div class="folha">
+    <header>
+      <div class="marca"><b id="modal-titulo">Lançar mês</b></div>
+      <button class="lixo" style="color:var(--areia);font-size:22px" id="fecha" aria-label="Fechar">×</button>
+    </header>
+    <div class="corpo" id="modal-corpo"></div>
+  </div>
+</div>
+
+<script>
+const CHAVE='lf-metricas-v1';
+const MES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const MESC=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+let dados={meses:{},contratos:[]};
+let salvavel=true;
+
+const brl=n=>'R$ '+Math.round(n).toLocaleString('pt-BR');
+const curto=n=>n>=1000?(n/1000).toFixed(1).replace('.',',')+'k':String(Math.round(n));
+const hoje=new Date();
+const chaveMes=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+const nomeMes=k=>{const[a,m]=k.split('-');return MES[+m-1]+' de '+a};
+const somaMes=(k,n)=>{const[a,m]=k.split('-').map(Number);const d=new Date(a,m-1+n,1);return chaveMes(d)};
+
+function carregar(){
+  try{
+    const r=localStorage.getItem(CHAVE);
+    if(r)dados=JSON.parse(r);
+  }catch(e){ salvavel=false; }
+  if(!dados.meses)dados.meses={};
+  if(!dados.contratos)dados.contratos=[];
+  document.getElementById('carregando').style.display='none';
+  render();
+}
+function salvar(){
+  try{ localStorage.setItem(CHAVE,JSON.stringify(dados)); salvavel=true; }
+  catch(e){ salvavel=false; }
+  render();
+}
+function baixarCopia(){
+  const b=new Blob([JSON.stringify(dados,null,2)],{type:'application/json'});
+  const u=URL.createObjectURL(b), a=document.createElement('a');
+  a.href=u; a.download='metricas-lf-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click(); URL.revokeObjectURL(u);
+}
+function restaurarCopia(arquivo){
+  const l=new FileReader();
+  l.onload=()=>{
+    try{
+      const d=JSON.parse(l.result);
+      if(!d.meses&&!d.contratos)throw 0;
+      if(!confirm('Restaurar esta cópia? Os lançamentos atuais serão substituídos.'))return;
+      dados={meses:d.meses||{},contratos:d.contratos||[]};
+      salvar();
+    }catch(e){ alert('Este arquivo não é uma cópia válida do app.'); }
+  };
+  l.readAsText(arquivo);
+}
+
+/* ---------- cálculos ---------- */
+function contratosDo(k){return dados.contratos.filter(c=>c.data.slice(0,7)===k)}
+function faturamentoDo(k){return contratosDo(k).reduce((s,c)=>s+c.valor,0)}
+function mesesLancados(){return Object.keys(dados.meses).sort()}
+function ultimosMeses(n){
+  const l=[];for(let i=0;i<n;i++){const d=new Date(hoje.getFullYear(),hoje.getMonth()-i,1);l.push(chaveMes(d))}
+  return l;
+}
+function acumulado(){
+  const ks=mesesLancados();
+  let inv=0,conv=0,cli=0;
+  ks.forEach(k=>{inv+=dados.meses[k].investimento||0;conv+=dados.meses[k].conversas||0;cli+=dados.meses[k].cliques||0});
+  const ctr=dados.contratos.filter(c=>ks.includes(c.data.slice(0,7)));
+  const fat=ctr.reduce((s,c)=>s+c.valor,0);
+  return{meses:ks.length,inv,conv,cli,contratos:ctr.length,fat,
+    retorno:inv?fat/inv:0, cac:ctr.length?inv/ctr.length:0,
+    porConversa:conv?inv/conv:0, ticket:ctr.length?fat/ctr.length:0,
+    fechamento:conv?ctr.length/conv*100:0};
+}
+function recebimentos(){
+  const mapa={};
+  dados.contratos.forEach(c=>{
+    const k=c.data.slice(0,7);
+    if(c.forma==='avista'){mapa[k]=(mapa[k]||0)+c.valor;return}
+    const ent=c.entrada||0, n=Math.max(1,c.parcelas||1), resto=(c.valor-ent)/n;
+    if(ent>0)mapa[k]=(mapa[k]||0)+ent;
+    for(let i=1;i<=n;i++){const kk=somaMes(k,i);mapa[kk]=(mapa[kk]||0)+resto}
+  });
+  return mapa;
+}
+
+/* ---------- telas ---------- */
+function render(){
+  painel();meses();contratos();evolucao();copia();
+}
+
+function painel(){
+  const k=chaveMes(hoje), m=dados.meses[k], ct=contratosDo(k), fat=faturamentoDo(k), a=acumulado();
+  let h='';
+  if(!mesesLancados().length&&!dados.contratos.length){
+    h=`<div class="nada"><strong>Comece por aqui</strong>
+      <p>Lance um contrato assim que assinar, e feche o mês quando ele acabar.<br>Os números aparecem sozinhos.</p></div>
+      <div class="acoes"><button class="b cheio" data-abre="contrato">Novo contrato</button>
+      <button class="b vazio" data-abre="mes">Lançar mês</button></div>`;
+  }else{
+    h=`<p class="olho">${nomeMes(k)}</p><div class="grade">
+      <div class="cel"><p>Investido</p><strong class="num">${m?brl(m.investimento):'—'}</strong></div>
+      <div class="cel"><p>Conversas</p><strong class="num">${m?m.conversas:'—'}</strong></div>
+      <div class="cel"><p>Contratos</p><strong class="num">${ct.length}</strong></div>
+      <div class="cel"><p>Faturamento</p><strong class="num">${brl(fat)}</strong></div></div>`;
+    if(!m)h+=`<div class="aviso atencao">Este mês ainda não foi lançado. Investimento e conversas ficam em branco até você preencher.</div>`;
+    const ant=somaMes(k,-1);
+    if(!dados.meses[ant])h+=`<div class="aviso atencao">${nomeMes(ant).replace(/^\w/,c=>c.toUpperCase())} terminou e não foi lançado. <button class="mini" style="margin-left:6px" data-abre="mes" data-mes="${ant}">Lançar agora</button></div>`;
+    if(a.meses>=3){
+      h+=`<p class="olho sep">Acumulado · ${a.meses} meses lançados</p><div class="grade">
+        <div class="cel destaque"><p>Retorno sobre o investimento</p><strong class="num">${a.retorno.toFixed(1).replace('.',',')}x</strong>
+        <small>${brl(a.inv)} investidos · ${brl(a.fat)} faturados</small></div>
+        <div class="cel"><p>Custo por conversa</p><strong class="num">${brl(a.porConversa)}</strong></div>
+        <div class="cel"><p>Custo por cliente</p><strong class="num">${brl(a.cac)}</strong></div>
+        <div class="cel"><p>Ticket médio</p><strong class="num">${brl(a.ticket)}</strong></div>
+        <div class="cel"><p>Conversas que fecham</p><strong class="num">${a.fechamento.toFixed(1).replace('.',',')}%</strong></div></div>`;
+    }else{
+      h+=`<div class="aviso info">O acumulado aparece com 3 meses lançados. ${a.meses===0?'Nenhum':'Faltam '+(3-a.meses)}${a.meses===0?' ainda.':''} Com poucos meses, qualquer média engana.</div>`;
+    }
+    h+=`<div class="acoes"><button class="b cheio" data-abre="contrato">Novo contrato</button>
+        <button class="b vazio" data-abre="mes">Lançar mês</button></div>`;
+  }
+  if(!salvavel)h+=`<div class="aviso atencao">Não foi possível gravar os dados neste navegador. O que você lançar agora se perde ao fechar.</div>`;
+  document.getElementById('ab-painel').innerHTML=h;
+}
+
+function meses(){
+  const lista=ultimosMeses(12);
+  let h='<p class="olho">Últimos 12 meses</p>';
+  lista.forEach(k=>{
+    const m=dados.meses[k],ct=contratosDo(k),fat=faturamentoDo(k);
+    const[a,mm]=k.split('-');
+    if(m){
+      const ret=m.investimento?(fat/m.investimento):0;
+      h+=`<div class="item"><div><h4>${MES[+mm-1]} <span style="color:var(--tinta-fraca);font-size:12px">${a}</span></h4>
+        <p>${brl(m.investimento)} · ${m.conversas} conversas · ${ct.length} contrato${ct.length===1?'':'s'}</p></div>
+        <div class="dir"><b class="num">${brl(fat)}</b>${m.investimento?`<em>${ret.toFixed(1).replace('.',',')}x</em>`:''}</div></div>`;
+    }else{
+      h+=`<div class="item vazio"><div><h4>${MES[+mm-1]} <span style="font-size:12px">${a}</span></h4>
+        <p>sem lançamento</p></div><button class="mini" data-abre="mes" data-mes="${k}">Lançar</button></div>`;
+    }
+  });
+  document.getElementById('ab-meses').innerHTML=h;
+}
+
+function contratos(){
+  const l=[...dados.contratos].sort((a,b)=>b.data.localeCompare(a.data));
+  let h='';
+  if(!l.length){
+    h=`<div class="nada"><strong>Nenhum contrato lançado</strong><p>Cada contrato assinado entra aqui com seu valor.<br>O faturamento do mês é a soma deles.</p></div>
+       <div class="acoes"><button class="b cheio" data-abre="contrato">Novo contrato</button></div>`;
+  }else{
+    h=`<p class="olho">${l.length} contrato${l.length===1?'':'s'}</p>`;
+    l.forEach(c=>{
+      const[y,m,d]=c.data.split('-');
+      const forma=c.forma==='avista'?'à vista':(c.entrada?`entrada + ${c.parcelas}x`:`${c.parcelas}x`);
+      h+=`<div class="item"><div><h4>${c.cliente||'Sem nome'}</h4>
+        <p>${d}/${m}/${y} · ${c.area} · ${forma}</p></div>
+        <div class="dir" style="display:flex;align-items:center;gap:8px"><b class="num">${brl(c.valor)}</b>
+        <button class="lixo" data-apaga="${c.id}" aria-label="Apagar contrato">×</button></div></div>`;
+    });
+    h+=`<div class="acoes"><button class="b cheio" data-abre="contrato">Novo contrato</button></div>`;
+  }
+  document.getElementById('ab-contratos').innerHTML=h;
+}
+
+function evolucao(){
+  const ks=ultimosMeses(6).reverse();
+  const vals=ks.map(k=>faturamentoDo(k));
+  const max=Math.max(...vals,1);
+  const a=acumulado();
+  let h='<p class="olho">Faturamento por mês</p><div class="graf">';
+  ks.forEach((k,i)=>{
+    const v=vals[i],alt=v?Math.max(8,Math.round(v/max*118)):4;
+    const cls=v===0?'zero':(v===max?'top':'');
+    h+=`<div class="col ${cls}"><span>${v?curto(v):'0'}</span><i style="height:${alt}px"></i></div>`;
+  });
+  h+='</div><div class="eixo">'+ks.map(k=>`<span>${MESC[+k.split('-')[1]-1]}</span>`).join('')+'</div>';
+  h+='<div class="eixo invest" style="margin-top:5px">'+ks.map(k=>{
+    const m=dados.meses[k];return `<span>${m?curto(m.investimento):'—'}</span>`}).join('')+'</div>';
+  h+='<p class="legenda">linha de baixo: investimento no mês</p>';
+
+  if(a.meses){
+    h+=`<div class="resumo">
+      <div><span>Faturado</span><b class="num">${brl(a.fat)}</b></div>
+      <div><span>Investido</span><b class="num">${brl(a.inv)}</b></div>
+      <div class="forte"><span>Retorno</span><b class="num">${a.retorno.toFixed(1).replace('.',',')}x</b></div>
+      <div><span>Custo por cliente</span><b class="num">${brl(a.cac)}</b></div>
+      <div><span>Ticket médio</span><b class="num">${brl(a.ticket)}</b></div></div>`;
+  }
+
+  const rec=recebimentos(), futuros=[];
+  for(let i=1;i<=6;i++){const k=somaMes(chaveMes(hoje),i);if(rec[k])futuros.push([k,rec[k]])}
+  if(futuros.length){
+    const mx=Math.max(...futuros.map(f=>f[1]));
+    const tot=futuros.reduce((s,f)=>s+f[1],0);
+    h+=`<p class="olho sep">A receber · previsão</p>
+      <div class="cel destaque" style="margin-bottom:12px"><p>Previsto para os próximos meses</p><strong class="num">${brl(tot)}</strong></div>`;
+    futuros.forEach(([k,v])=>{
+      const[y,m]=k.split('-');
+      h+=`<div class="item"><div style="flex:1"><h4 style="font-size:13.5px;margin-bottom:5px">${MES[+m-1]}</h4>
+        <div class="barra"><i style="width:${Math.round(v/mx*100)}%"></i></div></div>
+        <div class="dir"><b class="num">${brl(v)}</b></div></div>`;
+    });
+    h+=`<p class="dica" style="margin-top:10px">Valores previstos conforme o combinado em cada contrato. Não confirmam pagamento recebido.</p>`;
+  }
+  document.getElementById('ab-evolucao').innerHTML=h;
+}
+
+function copia(){
+  const a=acumulado();
+  document.getElementById('ab-dados').innerHTML=`
+    <p class="olho">Cópia de segurança</p>
+    <div class="aviso info">Os lançamentos ficam gravados neste aparelho. Se limpar os dados do navegador ou trocar de celular, eles somem. Baixe uma cópia de vez em quando.</div>
+    <div class="grade" style="margin-bottom:16px">
+      <div class="cel"><p>Meses lançados</p><strong class="num">${a.meses}</strong></div>
+      <div class="cel"><p>Contratos</p><strong class="num">${dados.contratos.length}</strong></div>
+    </div>
+    <div class="acoes"><button class="b cheio" id="d-baixa">Baixar cópia</button>
+    <button class="b vazio" id="d-restaura">Restaurar cópia</button></div>
+    <input type="file" id="d-arquivo" accept="application/json" style="display:none">
+    <p class="dica" style="margin-top:14px">A cópia é um arquivo que fica no seu aparelho. Guarde no e-mail ou na nuvem.</p>`;
+  document.getElementById('d-baixa').onclick=baixarCopia;
+  document.getElementById('d-restaura').onclick=()=>document.getElementById('d-arquivo').click();
+  document.getElementById('d-arquivo').onchange=e=>{if(e.target.files[0])restaurarCopia(e.target.files[0])};
+}
+
+/* ---------- modais ---------- */
+const modal=document.getElementById('modal'),corpo=document.getElementById('modal-corpo'),titulo=document.getElementById('modal-titulo');
+function abre(){modal.classList.add('on')}
+function fecha(){modal.classList.remove('on')}
+document.getElementById('fecha').onclick=fecha;
+modal.onclick=e=>{if(e.target===modal)fecha()};
+
+function formMes(pre){
+  titulo.textContent='Lançar mês';
+  const opts=ultimosMeses(24).map(k=>`<option value="${k}" ${k===(pre||chaveMes(hoje))?'selected':''}>${nomeMes(k)}</option>`).join('');
+  corpo.innerHTML=`
+    <div class="campo"><label for="f-mes">Mês de referência</label><select id="f-mes">${opts}</select>
+    <p class="dica">Pode lançar qualquer mês anterior.</p></div>
+    <p class="olho" style="margin:18px 0 10px">Copiar do Google Ads</p>
+    <div class="campo"><label for="f-inv">Investimento no mês (R$)</label><input id="f-inv" type="number" inputmode="decimal" min="0" step="0.01" placeholder="1000"></div>
+    <div class="campo"><label for="f-cli">Cliques no anúncio</label><input id="f-cli" type="number" inputmode="numeric" min="0" placeholder="312"></div>
+    <div class="campo"><label for="f-con">Conversas no WhatsApp</label><input id="f-con" type="number" inputmode="numeric" min="0" placeholder="20"></div>
+    <div class="previa" id="f-resumo"></div>
+    <p class="erro" id="f-erro"></p>
+    <button class="b cheio" style="width:100%" id="f-salva">Salvar mês</button>`;
+  const sel=document.getElementById('f-mes');
+  const pinta=()=>{
+    const k=sel.value,m=dados.meses[k],ct=contratosDo(k);
+    if(m){document.getElementById('f-inv').value=m.investimento;document.getElementById('f-cli').value=m.cliques;document.getElementById('f-con').value=m.conversas}
+    document.getElementById('f-resumo').innerHTML=`Neste mês: <b>${ct.length} contrato${ct.length===1?'':'s'}</b> e <b>${brl(faturamentoDo(k))}</b> de faturamento. Vem dos contratos lançados, não precisa digitar.`;
+  };
+  sel.onchange=pinta;pinta();
+  document.getElementById('f-salva').onclick=()=>{
+    const inv=parseFloat(document.getElementById('f-inv').value),
+          cli=parseInt(document.getElementById('f-cli').value),
+          con=parseInt(document.getElementById('f-con').value),
+          er=document.getElementById('f-erro');
+    if(isNaN(inv)||isNaN(con)){er.textContent='Preencha ao menos o investimento e as conversas.';er.classList.add('on');return}
+    dados.meses[sel.value]={investimento:inv,cliques:isNaN(cli)?0:cli,conversas:con};
+    fecha();salvar();
+  };
+  abre();
+}
+
+function formContrato(){
+  titulo.textContent='Novo contrato';
+  const hj=hoje.toISOString().slice(0,10);
+  corpo.innerHTML=`
+    <div class="par"><div class="campo"><label for="c-data">Data da assinatura</label><input id="c-data" type="date" value="${hj}"></div>
+    <div class="campo"><label for="c-valor">Valor do contrato (R$)</label><input id="c-valor" type="number" inputmode="decimal" min="0" step="0.01" placeholder="4500"></div></div>
+    <p class="dica" style="margin:-8px 0 14px">Honorários contratados. Êxito não entra aqui.</p>
+    <div class="campo"><label for="c-cliente">Cliente</label><input id="c-cliente" type="text" placeholder="Iniciais ou nome"></div>
+    <div class="campo"><label>Área</label><div class="fichas" id="c-area">
+      <button class="ficha" aria-pressed="true" data-v="Divórcio">Divórcio</button>
+      <button class="ficha" aria-pressed="false" data-v="Inventário">Inventário</button>
+      <button class="ficha" aria-pressed="false" data-v="Cível">Cível</button>
+      <button class="ficha" aria-pressed="false" data-v="Consumidor">Consumidor</button>
+      <button class="ficha" aria-pressed="false" data-v="Outro">Outro</button></div></div>
+    <div class="campo"><label>Como vai receber</label><div class="fichas" id="c-forma">
+      <button class="ficha" aria-pressed="true" data-v="avista">À vista</button>
+      <button class="ficha" aria-pressed="false" data-v="entrada">Entrada + parcelas</button>
+      <button class="ficha" aria-pressed="false" data-v="parcelado">Parcelado</button></div></div>
+    <div id="c-plano" style="display:none">
+      <div class="par"><div class="campo" id="c-box-ent"><label for="c-entrada">Entrada (R$)</label><input id="c-entrada" type="number" inputmode="decimal" min="0" step="0.01" placeholder="1500"></div>
+      <div class="campo"><label for="c-parcelas">Parcelas</label><input id="c-parcelas" type="number" inputmode="numeric" min="1" max="36" value="3"></div></div>
+    </div>
+    <div class="previa" id="c-previa">Recebimento à vista no mês da assinatura.</div>
+    <p class="erro" id="c-erro"></p>
+    <button class="b cheio" style="width:100%" id="c-salva">Salvar contrato</button>`;
+
+  const grupo=id=>{const c=document.getElementById(id);c.onclick=e=>{const b=e.target.closest('.ficha');if(!b)return;
+    [...c.children].forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');
+    if(id==='c-forma')ajusta();};};
+  grupo('c-area');grupo('c-forma');
+  const pego=id=>document.querySelector('#'+id+' .ficha[aria-pressed="true"]').dataset.v;
+
+  function ajusta(){
+    const f=pego('c-forma');
+    document.getElementById('c-plano').style.display=f==='avista'?'none':'block';
+    document.getElementById('c-box-ent').style.display=f==='entrada'?'block':'none';
+    previa();
+  }
+  function previa(){
+    const f=pego('c-forma'),v=parseFloat(document.getElementById('c-valor').value)||0,
+          e=f==='entrada'?(parseFloat(document.getElementById('c-entrada').value)||0):0,
+          n=parseInt(document.getElementById('c-parcelas').value)||1;
+    const box=document.getElementById('c-previa');
+    if(!v){box.textContent='Informe o valor para ver a previsão de recebimento.';return}
+    if(f==='avista'){box.innerHTML=`<b>${brl(v)}</b> no mês da assinatura.`;return}
+    const p=(v-e)/n;
+    box.innerHTML=(e?`Entrada de <b>${brl(e)}</b> no mês da assinatura, depois `:'')+`<b>${n}x de ${brl(p)}</b> nos meses seguintes.`;
+  }
+  ['c-valor','c-entrada','c-parcelas'].forEach(id=>document.getElementById(id).oninput=previa);
+  ajusta();
+
+  document.getElementById('c-salva').onclick=()=>{
+    const data=document.getElementById('c-data').value,
+          valor=parseFloat(document.getElementById('c-valor').value),
+          er=document.getElementById('c-erro');
+    if(!data||isNaN(valor)||valor<=0){er.textContent='Informe a data da assinatura e o valor do contrato.';er.classList.add('on');return}
+    const f=pego('c-forma');
+    dados.contratos.push({id:Date.now(),data,cliente:document.getElementById('c-cliente').value.trim(),
+      area:pego('c-area'),valor,forma:f,
+      entrada:f==='entrada'?(parseFloat(document.getElementById('c-entrada').value)||0):0,
+      parcelas:f==='avista'?0:(parseInt(document.getElementById('c-parcelas').value)||1)});
+    fecha();salvar();
+  };
+  abre();
+}
+
+/* ---------- navegação ---------- */
+document.querySelector('nav').onclick=e=>{
+  const b=e.target.closest('button[data-aba]');if(!b)return;
+  document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-selected','false'));
+  b.setAttribute('aria-selected','true');
+  document.querySelectorAll('.aba').forEach(s=>s.classList.remove('on'));
+  document.getElementById('ab-'+b.dataset.aba).classList.add('on');
+};
+document.querySelector('main').onclick=e=>{
+  const ab=e.target.closest('[data-abre]');
+  if(ab){ab.dataset.abre==='mes'?formMes(ab.dataset.mes):formContrato();return}
+  const ap=e.target.closest('[data-apaga]');
+  if(ap){
+    if(!confirm('Apagar este contrato? Ele sai do faturamento do mês.'))return;
+    dados.contratos=dados.contratos.filter(c=>String(c.id)!==ap.dataset.apaga);
+    salvar();
+  }
+};
+document.getElementById('ab-painel').classList.add('on');
+carregar();
+</script>
+</body>
+</html>
