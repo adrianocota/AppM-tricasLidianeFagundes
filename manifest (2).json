@@ -1,0 +1,13 @@
+{
+  "name": "Métricas · Lidiane Fagundes Advogada",
+  "short_name": "Métricas LF",
+  "description": "Controle de investimento em tráfego pago, conversas e contratos fechados.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FBF1E4",
+  "theme_color": "#8E1013",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "icone.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
