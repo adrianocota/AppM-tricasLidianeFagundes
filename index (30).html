@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#8E1013">
+<title>Métricas · Lidiane Fagundes Advogada</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icone.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vinho:#8E1013;--vinho-esc:#5C0A0C;--areia:#F2CFA3;--areia-clara:#FBF1E4;
+  --tinta:#2E2A28;--tinta-med:#6B635E;--tinta-fraca:#9C938D;--papel:#FFFDFA;
+  --linha:#E8DFD4;--verde:#1F7A5C;--alerta:#B45309;--r:10px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--areia-clara);color:var(--tinta);font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.5;padding-bottom:env(safe-area-inset-bottom)}
+.num{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;letter-spacing:-.01em;font-variant-numeric:lining-nums}
+.wrap{max-width:520px;margin:0 auto;background:var(--papel);min-height:100vh;box-shadow:0 0 40px rgba(92,10,12,.06)}
+header{background:var(--vinho);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20}
+.marca{display:flex;align-items:center;gap:10px}
+.selo{width:34px;height:34px;border-radius:9px 3px 9px 3px;background:var(--areia);color:var(--vinho-esc);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px}
+.marca b{color:#fff;font-weight:500;font-size:14px;letter-spacing:.06em;text-transform:uppercase;display:block;line-height:1.2}
+.marca span{color:var(--areia);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.sair{background:none;border:0;color:var(--areia);font-size:12px;font-family:inherit;cursor:pointer;padding:6px}
+nav{display:flex;background:var(--vinho);padding:0 10px;position:sticky;top:66px;z-index:19}
+nav button{flex:1;background:none;border:0;color:rgba(255,255,255,.62);font-family:inherit;font-size:12.5px;padding:11px 4px 12px;cursor:pointer;border-bottom:2px solid transparent}
+nav button[aria-selected="true"]{color:#fff;border-bottom-color:var(--areia)}
+nav button:focus-visible{outline:2px solid var(--areia);outline-offset:-3px}
+main{padding:18px}
+.aba{display:none}.aba.on{display:block;animation:sobe .22s ease}
+@keyframes sobe{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.olho{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta-fraca);margin:0 0 10px}
+.olho.sep{padding-top:22px;margin-top:22px;border-top:1px solid var(--linha)}
+.grade{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cel{background:var(--areia-clara);border-radius:var(--r);padding:13px 14px}
+.cel p{margin:0;font-size:11.5px;color:var(--tinta-med)}
+.cel strong{display:block;font-size:27px;line-height:1.15;margin-top:3px}
+.cel.destaque{background:var(--vinho);color:#fff;grid-column:1/-1}
+.cel.destaque p{color:var(--areia)}
+.cel.destaque strong{font-size:38px}
+.cel small{display:block;font-size:11px;color:var(--tinta-fraca);margin-top:3px}
+.cel.destaque small{color:rgba(255,255,255,.72)}
+.aviso{border-radius:var(--r);padding:12px 14px;font-size:12.5px;line-height:1.5;margin:14px 0}
+.aviso.info{background:var(--areia-clara);color:var(--tinta-med);border-left:3px solid var(--areia)}
+.aviso.atencao{background:#FDF4E7;color:var(--alerta);border-left:3px solid var(--alerta)}
+.acoes{display:flex;gap:9px;margin-top:16px}
+button.b{flex:1;font-family:inherit;font-size:13.5px;font-weight:500;padding:13px;border-radius:var(--r);cursor:pointer;border:1px solid var(--vinho)}
+button.b.cheio{background:var(--vinho);color:#fff}
+button.b.vazio{background:transparent;color:var(--vinho)}
+button.b:disabled{opacity:.5;cursor:default}
+button.b:hover:not(:disabled){opacity:.85}
+button.b:focus-visible{outline:2px solid var(--vinho);outline-offset:2px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--linha)}
+.item:last-child{border-bottom:0}
+.item h4{margin:0;font-size:14.5px;font-weight:500}
+.item p{margin:2px 0 0;font-size:11.5px;color:var(--tinta-fraca)}
+.item .dir{text-align:right;white-space:nowrap}
+.item .dir b{font-size:15px;font-weight:500}
+.item .dir em{display:block;font-style:normal;font-size:11.5px;color:var(--verde);margin-top:2px}
+.item.vazio h4{color:var(--tinta-fraca)}
+.item.vazio p{color:var(--vinho)}
+.mini{background:none;border:1px solid var(--linha);color:var(--vinho);font-family:inherit;font-size:12px;padding:7px 13px;border-radius:var(--r);cursor:pointer}
+.lixo{background:none;border:0;color:var(--tinta-fraca);font-size:17px;cursor:pointer;padding:4px 6px;line-height:1}
+.lixo:hover{color:var(--vinho)}
+.nada{text-align:center;padding:44px 18px;color:var(--tinta-fraca)}
+.nada strong{display:block;font-size:20px;color:var(--tinta);margin-bottom:6px;font-weight:500}
+.nada p{margin:0;font-size:13px;line-height:1.6}
+.graf{display:flex;align-items:flex-end;gap:7px;height:150px;margin-bottom:7px}
+.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.col span{font-size:10.5px;color:var(--tinta-med);margin-bottom:4px}
+.col i{display:block;width:100%;background:#C97B72;border-radius:3px 3px 0 0;font-style:normal}
+.col.top i{background:var(--vinho)}
+.col.zero i{background:var(--linha)}
+.col.zero span{color:var(--tinta-fraca)}
+.eixo{display:flex;gap:7px}
+.eixo span{flex:1;text-align:center;font-size:10.5px;color:var(--tinta-fraca)}
+.eixo.invest span{color:var(--tinta-med)}
+.legenda{font-size:10.5px;color:var(--tinta-fraca);text-align:center;margin:6px 0 0}
+.resumo{background:var(--areia-clara);border-radius:var(--r);padding:14px;margin-top:18px}
+.resumo div{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}
+.resumo div span{color:var(--tinta-med)}
+.resumo div b{font-weight:500}
+.resumo div.forte{border-top:1px solid var(--linha);margin-top:6px;padding-top:9px}
+.resumo div.forte b{color:var(--verde);font-size:15px}
+.barra{flex:1;height:7px;background:var(--areia-clara);border-radius:4px;overflow:hidden}
+.barra i{display:block;height:100%;background:#C97B72;border-radius:4px}
+.fundo{position:fixed;inset:0;background:rgba(46,42,40,.5);display:flex;align-items:flex-end;justify-content:center;z-index:50;opacity:0;pointer-events:none;transition:opacity .2s}
+.fundo.on{opacity:1;pointer-events:auto}
+.folha{background:var(--papel);width:100%;max-width:520px;max-height:92vh;overflow-y:auto;border-radius:16px 16px 0 0;transform:translateY(18px);transition:transform .22s}
+.fundo.on .folha{transform:none}
+.folha header{border-radius:16px 16px 0 0}
+.folha .corpo{padding:18px}
+label{display:block;font-size:12px;color:var(--tinta-med);margin-bottom:5px}
+input,select{width:100%;font-family:inherit;font-size:16px;color:var(--tinta);background:var(--papel);border:1px solid var(--linha);border-radius:var(--r);padding:11px 12px}
+input:focus,select:focus{outline:0;border-color:var(--vinho)}
+.campo{margin-bottom:14px}
+.par{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.dica{font-size:11px;color:var(--tinta-fraca);margin:5px 0 0}
+.fichas{display:flex;flex-wrap:wrap;gap:7px}
+.ficha{border:1px solid var(--linha);background:var(--papel);color:var(--tinta-med);font-family:inherit;font-size:12.5px;padding:8px 14px;border-radius:var(--r);cursor:pointer}
+.ficha[aria-pressed="true"]{background:var(--vinho);border-color:var(--vinho);color:#fff}
+.previa{background:var(--areia-clara);border-radius:var(--r);padding:12px;font-size:12.5px;color:var(--tinta-med);line-height:1.5;margin-bottom:14px}
+.previa b{color:var(--tinta);font-weight:500}
+.erro{color:var(--vinho);font-size:12.5px;margin:0 0 12px;display:none}
+.erro.on{display:block}
+.centro{text-align:center;padding:60px 20px;color:var(--tinta-fraca);font-size:13px}
+.porta{max-width:400px;margin:0 auto;padding:56px 24px}
+.porta .selo{width:56px;height:56px;font-size:26px;border-radius:14px 5px 14px 5px;margin:0 auto 20px}
+.porta h1{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;text-align:center;margin:0 0 6px}
+.porta .sub{text-align:center;color:var(--tinta-med);font-size:13px;margin:0 0 28px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--tinta);color:#fff;font-size:13px;padding:11px 18px;border-radius:var(--r);z-index:80;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+
+<div id="tela-login" style="display:none">
+  <div class="porta">
+    <div class="selo">LF</div>
+    <h1>Métricas</h1>
+    <p class="sub">Lidiane Fagundes Advogada</p>
+    <div class="campo"><label for="email">Seu e-mail</label>
+      <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="nome@exemplo.com"></div>
+    <p class="erro" id="login-erro"></p>
+    <button class="b cheio" style="width:100%" id="entrar">Receber link de acesso</button>
+    <div class="aviso info" id="login-aviso">Você recebe um link por e-mail. Ao clicar nele, entra direto, sem senha.</div>
+  </div>
+</div>
+
+<div class="wrap" id="tela-app" style="display:none">
+  <header>
+    <div class="marca">
+      <div class="selo">LF</div>
+      <div><b>Lidiane Fagundes</b><span>Métricas</span></div>
+    </div>
+    <button class="sair" id="sair">Sair</button>
+  </header>
+  <nav role="tablist">
+    <button role="tab" aria-selected="true" data-aba="painel">Painel</button>
+    <button role="tab" aria-selected="false" data-aba="meses">Meses</button>
+    <button role="tab" aria-selected="false" data-aba="contratos">Contratos</button>
+    <button role="tab" aria-selected="false" data-aba="evolucao">Evolução</button>
+    <button role="tab" aria-selected="false" data-aba="dados">Cópia</button>
+  </nav>
+  <main>
+    <div id="carregando" class="centro">Carregando seus lançamentos…</div>
+    <section class="aba on" id="ab-painel"></section>
+    <section class="aba" id="ab-meses"></section>
+    <section class="aba" id="ab-contratos"></section>
+    <section class="aba" id="ab-evolucao"></section>
+    <section class="aba" id="ab-dados"></section>
+  </main>
+</div>
+
+<div class="centro" id="tela-inicial">Abrindo…</div>
+
+<div class="fundo" id="modal">
+  <div class="folha">
+    <header><div class="marca"><b id="modal-titulo">Lançar mês</b></div>
+      <button class="lixo" style="color:var(--areia);font-size:22px" id="fecha" aria-label="Fechar">×</button></header>
+    <div class="corpo" id="modal-corpo"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+const SUPABASE_URL='https://ptweuugkqsodgqywmsxi.supabase.co';
+const SUPABASE_KEY='sb_publishable_01kywBXKeBT9KiadEDrjDQ_dMHbbjGf';
+const sb=createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const MES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const MESC=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const brl=n=>'R$ '+Math.round(n).toLocaleString('pt-BR');
+const curto=n=>n>=1000?(n/1000).toFixed(1).replace('.',',')+'k':String(Math.round(n));
+const hoje=new Date();
+const chaveMes=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+const nomeMes=k=>{const p=k.split('-');return MES[+p[1]-1]+' de '+p[0]};
+const somaMes=(k,n)=>{const p=k.split('-').map(Number);return chaveMes(new Date(p[0],p[1]-1+n,1))};
+const maiuscula=s=>s.charAt(0).toUpperCase()+s.slice(1);
+
+let dados={meses:{},contratos:[]};
+let escritorio=null;
+
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2600)}
+
+document.getElementById('entrar').onclick=async()=>{
+  const email=document.getElementById('email').value.trim(),er=document.getElementById('login-erro'),bt=document.getElementById('entrar');
+  if(!email.includes('@')){er.textContent='Digite um e-mail válido.';er.classList.add('on');return}
+  er.classList.remove('on');bt.disabled=true;bt.textContent='Enviando…';
+  const r=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:location.href.split('#')[0]}});
+  bt.disabled=false;bt.textContent='Receber link de acesso';
+  if(r.error){er.textContent='Não foi possível enviar: '+r.error.message;er.classList.add('on');return}
+  toast('Link enviado. Confira seu e-mail.');
+  document.getElementById('login-aviso').textContent='Enviamos o link para '+email+'. Abra o e-mail neste mesmo aparelho.';
+};
+document.getElementById('sair').onclick=async()=>{await sb.auth.signOut();location.reload()};
+
+sb.auth.onAuthStateChange((evento,sessao)=>{ if(evento==='SIGNED_IN'||evento==='SIGNED_OUT') mostrar(sessao); });
+const inicial=await sb.auth.getSession();
+await mostrar(inicial.data.session);
+
+async function mostrar(sessao){
+  document.getElementById('tela-inicial').style.display='none';
+  if(!sessao){
+    document.getElementById('tela-login').style.display='block';
+    document.getElementById('tela-app').style.display='none';
+    return;
+  }
+  document.getElementById('tela-login').style.display='none';
+  document.getElementById('tela-app').style.display='block';
+  if(escritorio)return;
+  const r=await sb.rpc('criar_escritorio',{nome_escritorio:'Lidiane Fagundes Advogada'});
+  if(r.error){document.getElementById('carregando').textContent='Erro ao abrir o escritório: '+r.error.message;return}
+  escritorio=r.data;
+  await recarregar();
+}
+
+async function recarregar(){
+  const r=await Promise.all([
+    sb.from('meses').select('*').order('referencia',{ascending:false}),
+    sb.from('contratos').select('*').order('assinatura',{ascending:false})
+  ]);
+  const m=r[0],c=r[1];
+  if(m.error||c.error){document.getElementById('carregando').textContent='Erro ao ler os dados: '+(m.error||c.error).message;return}
+  dados.meses={};
+  m.data.forEach(x=>{dados.meses[x.referencia.slice(0,7)]={investimento:+x.investimento,cliques:x.cliques,conversas:x.conversas}});
+  dados.contratos=c.data.map(x=>({id:x.id,data:x.assinatura,cliente:x.cliente||'',area:x.area,valor:+x.valor,forma:x.forma,entrada:+x.entrada,parcelas:x.parcelas}));
+  document.getElementById('carregando').style.display='none';
+  render();
+}
+
+async function gravarMes(k,v){
+  const r=await sb.from('meses').upsert({escritorio_id:escritorio,referencia:k+'-01',
+    investimento:v.investimento,cliques:v.cliques||0,conversas:v.conversas},{onConflict:'escritorio_id,referencia'});
+  if(r.error){toast('Não gravou: '+r.error.message);return false}
+  return true;
+}
+async function gravarContrato(c){
+  const r=await sb.from('contratos').insert({escritorio_id:escritorio,assinatura:c.data,cliente:c.cliente,
+    area:c.area,valor:c.valor,forma:c.forma,entrada:c.entrada,parcelas:c.parcelas});
+  if(r.error){toast('Não gravou: '+r.error.message);return false}
+  return true;
+}
+async function apagarContrato(id){
+  const r=await sb.from('contratos').delete().eq('id',id);
+  if(r.error){toast('Não apagou: '+r.error.message);return false}
+  return true;
+}
+
+const contratosDo=k=>dados.contratos.filter(c=>c.data.slice(0,7)===k);
+const faturamentoDo=k=>contratosDo(k).reduce((s,c)=>s+c.valor,0);
+const mesesLancados=()=>Object.keys(dados.meses).sort();
+function ultimosMeses(n){const l=[];for(let i=0;i<n;i++)l.push(chaveMes(new Date(hoje.getFullYear(),hoje.getMonth()-i,1)));return l}
+function acumulado(){
+  const ks=mesesLancados();let inv=0,conv=0;
+  ks.forEach(k=>{inv+=dados.meses[k].investimento;conv+=dados.meses[k].conversas});
+  const ctr=dados.contratos.filter(c=>ks.indexOf(c.data.slice(0,7))>=0);
+  const fat=ctr.reduce((s,c)=>s+c.valor,0);
+  return{meses:ks.length,inv,conv,contratos:ctr.length,fat,retorno:inv?fat/inv:0,
+    cac:ctr.length?inv/ctr.length:0,porConversa:conv?inv/conv:0,
+    ticket:ctr.length?fat/ctr.length:0,fechamento:conv?ctr.length/conv*100:0};
+}
+function recebimentos(){
+  const mapa={};
+  dados.contratos.forEach(c=>{
+    const k=c.data.slice(0,7);
+    if(c.forma==='avista'){mapa[k]=(mapa[k]||0)+c.valor;return}
+    const ent=c.entrada||0,n=Math.max(1,c.parcelas||1),resto=(c.valor-ent)/n;
+    if(ent>0)mapa[k]=(mapa[k]||0)+ent;
+    for(let i=1;i<=n;i++){const kk=somaMes(k,i);mapa[kk]=(mapa[kk]||0)+resto}
+  });
+  return mapa;
+}
+
+function render(){painel();meses();contratos();evolucao();copia()}
+
+function painel(){
+  const k=chaveMes(hoje),m=dados.meses[k],ct=contratosDo(k),fat=faturamentoDo(k),a=acumulado();
+  let h='';
+  if(!mesesLancados().length&&!dados.contratos.length){
+    h='<div class="nada"><strong>Comece por aqui</strong><p>Lance um contrato assim que assinar, e feche o mês quando ele acabar.<br>Os números aparecem sozinhos.</p></div>'+
+      '<div class="acoes"><button class="b cheio" data-abre="contrato">Novo contrato</button><button class="b vazio" data-abre="mes">Lançar mês</button></div>';
+  }else{
+    h='<p class="olho">'+nomeMes(k)+'</p><div class="grade">'+
+      '<div class="cel"><p>Investido</p><strong class="num">'+(m?brl(m.investimento):'—')+'</strong></div>'+
+      '<div class="cel"><p>Conversas</p><strong class="num">'+(m?m.conversas:'—')+'</strong></div>'+
+      '<div class="cel"><p>Contratos</p><strong class="num">'+ct.length+'</strong></div>'+
+      '<div class="cel"><p>Faturamento</p><strong class="num">'+brl(fat)+'</strong></div></div>';
+    if(!m)h+='<div class="aviso atencao">Este mês ainda não foi lançado.</div>';
+    const ant=somaMes(k,-1);
+    if(!dados.meses[ant])h+='<div class="aviso atencao">'+maiuscula(nomeMes(ant))+' terminou e não foi lançado. <button class="mini" style="margin-left:6px" data-abre="mes" data-mes="'+ant+'">Lançar agora</button></div>';
+    if(a.meses>=3){
+      h+='<p class="olho sep">Acumulado · '+a.meses+' meses lançados</p><div class="grade">'+
+        '<div class="cel destaque"><p>Retorno sobre o investimento</p><strong class="num">'+a.retorno.toFixed(1).replace('.',',')+'x</strong>'+
+        '<small>'+brl(a.inv)+' investidos · '+brl(a.fat)+' faturados</small></div>'+
+        '<div class="cel"><p>Custo por conversa</p><strong class="num">'+brl(a.porConversa)+'</strong></div>'+
+        '<div class="cel"><p>Custo por cliente</p><strong class="num">'+brl(a.cac)+'</strong></div>'+
+        '<div class="cel"><p>Ticket médio</p><strong class="num">'+brl(a.ticket)+'</strong></div>'+
+        '<div class="cel"><p>Conversas que fecham</p><strong class="num">'+a.fechamento.toFixed(1).replace('.',',')+'%</strong></div></div>';
+    }else{
+      h+='<div class="aviso info">O acumulado aparece com 3 meses lançados. Com poucos meses, qualquer média engana.</div>';
+    }
+    h+='<div class="acoes"><button class="b cheio" data-abre="contrato">Novo contrato</button><button class="b vazio" data-abre="mes">Lançar mês</button></div>';
+  }
+  document.getElementById('ab-painel').innerHTML=h;
+}
+
+function meses(){
+  let h='<p class="olho">Últimos 12 meses</p>';
+  ultimosMeses(12).forEach(k=>{
+    const m=dados.meses[k],ct=contratosDo(k),fat=faturamentoDo(k),p=k.split('-');
+    if(m){
+      const ret=m.investimento?fat/m.investimento:0;
+      h+='<div class="item"><div><h4>'+MES[+p[1]-1]+' <span style="color:var(--tinta-fraca);font-size:12px">'+p[0]+'</span></h4>'+
+         '<p>'+brl(m.investimento)+' · '+m.conversas+' conversas · '+ct.length+' contrato'+(ct.length===1?'':'s')+'</p></div>'+
+         '<div class="dir"><b class="num">'+brl(fat)+'</b>'+(m.investimento?'<em>'+ret.toFixed(1).replace('.',',')+'x</em>':'')+'</div></div>';
+    }else{
+      h+='<div class="item vazio"><div><h4>'+MES[+p[1]-1]+' <span style="font-size:12px">'+p[0]+'</span></h4>'+
+         '<p>sem lançamento</p></div><button class="mini" data-abre="mes" data-mes="'+k+'">Lançar</button></div>';
+    }
+  });
+  document.getElementById('ab-meses').innerHTML=h;
+}
+
+function contratos(){
+  const l=dados.contratos.slice().sort((a,b)=>b.data.localeCompare(a.data));
+  let h='';
+  if(!l.length){
+    h='<div class="nada"><strong>Nenhum contrato lançado</strong><p>Cada contrato assinado entra aqui com seu valor.<br>O faturamento do mês é a soma deles.</p></div>'+
+      '<div class="acoes"><button class="b cheio" data-abre="contrato">Novo contrato</button></div>';
+  }else{
+    h='<p class="olho">'+l.length+' contrato'+(l.length===1?'':'s')+'</p>';
+    l.forEach(c=>{
+      const p=c.data.split('-');
+      const forma=c.forma==='avista'?'à vista':(c.forma==='entrada'?'entrada + '+c.parcelas+'x':c.parcelas+'x');
+      h+='<div class="item"><div><h4>'+(c.cliente||'Sem nome')+'</h4>'+
+         '<p>'+p[2]+'/'+p[1]+'/'+p[0]+' · '+c.area+' · '+forma+'</p></div>'+
+         '<div class="dir" style="display:flex;align-items:center;gap:8px"><b class="num">'+brl(c.valor)+'</b>'+
+         '<button class="lixo" data-apaga="'+c.id+'" aria-label="Apagar contrato">×</button></div></div>';
+    });
+    h+='<div class="acoes"><button class="b cheio" data-abre="contrato">Novo contrato</button></div>';
+  }
+  document.getElementById('ab-contratos').innerHTML=h;
+}
+
+function evolucao(){
+  const ks=ultimosMeses(6).reverse(),vals=ks.map(faturamentoDo),max=Math.max.apply(null,vals.concat([1])),a=acumulado();
+  let h='<p class="olho">Faturamento por mês</p><div class="graf">';
+  ks.forEach((k,i)=>{
+    const v=vals[i],alt=v?Math.max(8,Math.round(v/max*118)):4,cls=v===0?'zero':(v===max?'top':'');
+    h+='<div class="col '+cls+'"><span>'+(v?curto(v):'0')+'</span><i style="height:'+alt+'px"></i></div>';
+  });
+  h+='</div><div class="eixo">'+ks.map(k=>'<span>'+MESC[+k.split('-')[1]-1]+'</span>').join('')+'</div>';
+  h+='<div class="eixo invest" style="margin-top:5px">'+ks.map(k=>{const m=dados.meses[k];return '<span>'+(m?curto(m.investimento):'—')+'</span>'}).join('')+'</div>';
+  h+='<p class="legenda">linha de baixo: investimento no mês</p>';
+  if(a.meses){
+    h+='<div class="resumo">'+
+      '<div><span>Faturado</span><b class="num">'+brl(a.fat)+'</b></div>'+
+      '<div><span>Investido</span><b class="num">'+brl(a.inv)+'</b></div>'+
+      '<div class="forte"><span>Retorno</span><b class="num">'+a.retorno.toFixed(1).replace('.',',')+'x</b></div>'+
+      '<div><span>Custo por cliente</span><b class="num">'+brl(a.cac)+'</b></div>'+
+      '<div><span>Ticket médio</span><b class="num">'+brl(a.ticket)+'</b></div></div>';
+  }
+  const rec=recebimentos(),fut=[];
+  for(let i=1;i<=6;i++){const k=somaMes(chaveMes(hoje),i);if(rec[k])fut.push([k,rec[k]])}
+  if(fut.length){
+    const mx=Math.max.apply(null,fut.map(f=>f[1])),tot=fut.reduce((s,f)=>s+f[1],0);
+    h+='<p class="olho sep">A receber · previsão</p>'+
+       '<div class="cel destaque" style="margin-bottom:12px"><p>Previsto para os próximos meses</p><strong class="num">'+brl(tot)+'</strong></div>';
+    fut.forEach(f=>{const m=f[0].split('-')[1];
+      h+='<div class="item"><div style="flex:1"><h4 style="font-size:13.5px;margin-bottom:5px">'+MES[+m-1]+'</h4>'+
+         '<div class="barra"><i style="width:'+Math.round(f[1]/mx*100)+'%"></i></div></div>'+
+         '<div class="dir"><b class="num">'+brl(f[1])+'</b></div></div>';});
+    h+='<p class="dica" style="margin-top:10px">Valores previstos conforme o combinado em cada contrato. Não confirmam pagamento recebido.</p>';
+  }
+  document.getElementById('ab-evolucao').innerHTML=h;
+}
+
+function copia(){
+  const a=acumulado();
+  document.getElementById('ab-dados').innerHTML=
+    '<p class="olho">Seus dados</p>'+
+    '<div class="aviso info">Os lançamentos ficam guardados na nuvem, ligados ao seu e-mail. Você pode entrar de qualquer aparelho.</div>'+
+    '<div class="grade" style="margin-bottom:16px">'+
+    '<div class="cel"><p>Meses lançados</p><strong class="num">'+a.meses+'</strong></div>'+
+    '<div class="cel"><p>Contratos</p><strong class="num">'+dados.contratos.length+'</strong></div></div>'+
+    '<div class="acoes"><button class="b cheio" id="d-baixa">Baixar cópia</button>'+
+    '<button class="b vazio" id="d-importa">Importar cópia</button></div>'+
+    '<input type="file" id="d-arquivo" accept="application/json" style="display:none">'+
+    '<p class="dica" style="margin-top:14px">Importar traz lançamentos de um arquivo salvo na versão anterior do app.</p>';
+  document.getElementById('d-baixa').onclick=()=>{
+    const b=new Blob([JSON.stringify(dados,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),el=document.createElement('a');
+    el.href=u;el.download='metricas-lf-'+new Date().toISOString().slice(0,10)+'.json';el.click();URL.revokeObjectURL(u);
+  };
+  document.getElementById('d-importa').onclick=()=>document.getElementById('d-arquivo').click();
+  document.getElementById('d-arquivo').onchange=e=>{if(e.target.files[0])importar(e.target.files[0])};
+}
+
+function importar(arquivo){
+  const l=new FileReader();
+  l.onload=async()=>{
+    let d;
+    try{d=JSON.parse(l.result)}catch(e){toast('Arquivo inválido.');return}
+    if(!d.meses&&!d.contratos){toast('Arquivo inválido.');return}
+    if(!confirm('Importar os lançamentos deste arquivo? Os meses que já existem serão atualizados.'))return;
+    let n=0;
+    const chaves=Object.keys(d.meses||{});
+    for(let i=0;i<chaves.length;i++){ if(await gravarMes(chaves[i],d.meses[chaves[i]]))n++; }
+    const cs=d.contratos||[];
+    for(let i=0;i<cs.length;i++){
+      const c=cs[i];
+      if(await gravarContrato({data:c.data,cliente:c.cliente||'',area:c.area||'Divórcio',valor:c.valor,
+        forma:c.forma||'avista',entrada:c.entrada||0,parcelas:c.parcelas||0}))n++;
+    }
+    await recarregar();
+    toast(n+' lançamentos importados.');
+  };
+  l.readAsText(arquivo);
+}
+
+const modal=document.getElementById('modal'),corpo=document.getElementById('modal-corpo'),titulo=document.getElementById('modal-titulo');
+const abre=()=>modal.classList.add('on'),fecha=()=>modal.classList.remove('on');
+document.getElementById('fecha').onclick=fecha;
+modal.onclick=e=>{if(e.target===modal)fecha()};
+
+function formMes(pre){
+  titulo.textContent='Lançar mês';
+  const opts=ultimosMeses(24).map(k=>'<option value="'+k+'"'+(k===(pre||chaveMes(hoje))?' selected':'')+'>'+nomeMes(k)+'</option>').join('');
+  corpo.innerHTML=
+    '<div class="campo"><label for="f-mes">Mês de referência</label><select id="f-mes">'+opts+'</select>'+
+    '<p class="dica">Pode lançar qualquer mês anterior.</p></div>'+
+    '<p class="olho" style="margin:18px 0 10px">Copiar do Google Ads</p>'+
+    '<div class="campo"><label for="f-inv">Investimento no mês (R$)</label><input id="f-inv" type="number" inputmode="decimal" min="0" step="0.01" placeholder="1000"></div>'+
+    '<div class="campo"><label for="f-cli">Cliques no anúncio</label><input id="f-cli" type="number" inputmode="numeric" min="0" placeholder="312"></div>'+
+    '<div class="campo"><label for="f-con">Conversas no WhatsApp</label><input id="f-con" type="number" inputmode="numeric" min="0" placeholder="20"></div>'+
+    '<div class="previa" id="f-resumo"></div><p class="erro" id="f-erro"></p>'+
+    '<button class="b cheio" style="width:100%" id="f-salva">Salvar mês</button>';
+  const sel=document.getElementById('f-mes');
+  const pinta=()=>{
+    const k=sel.value,m=dados.meses[k],ct=contratosDo(k);
+    document.getElementById('f-inv').value=m?m.investimento:'';
+    document.getElementById('f-cli').value=m?m.cliques:'';
+    document.getElementById('f-con').value=m?m.conversas:'';
+    document.getElementById('f-resumo').innerHTML='Neste mês: <b>'+ct.length+' contrato'+(ct.length===1?'':'s')+'</b> e <b>'+brl(faturamentoDo(k))+'</b> de faturamento. Vem dos contratos lançados, não precisa digitar.';
+  };
+  sel.onchange=pinta;pinta();
+  document.getElementById('f-salva').onclick=async()=>{
+    const inv=parseFloat(document.getElementById('f-inv').value),
+          cli=parseInt(document.getElementById('f-cli').value),
+          con=parseInt(document.getElementById('f-con').value),
+          er=document.getElementById('f-erro'),bt=document.getElementById('f-salva');
+    if(isNaN(inv)||isNaN(con)){er.textContent='Preencha ao menos o investimento e as conversas.';er.classList.add('on');return}
+    bt.disabled=true;bt.textContent='Salvando…';
+    const ok=await gravarMes(sel.value,{investimento:inv,cliques:isNaN(cli)?0:cli,conversas:con});
+    bt.disabled=false;bt.textContent='Salvar mês';
+    if(ok){fecha();await recarregar();toast('Mês salvo.')}
+  };
+  abre();
+}
+
+function formContrato(){
+  titulo.textContent='Novo contrato';
+  corpo.innerHTML=
+    '<div class="par"><div class="campo"><label for="c-data">Data da assinatura</label><input id="c-data" type="date" value="'+hoje.toISOString().slice(0,10)+'"></div>'+
+    '<div class="campo"><label for="c-valor">Valor do contrato (R$)</label><input id="c-valor" type="number" inputmode="decimal" min="0" step="0.01" placeholder="4500"></div></div>'+
+    '<p class="dica" style="margin:-8px 0 14px">Honorários contratados. Êxito não entra aqui.</p>'+
+    '<div class="campo"><label for="c-cliente">Cliente</label><input id="c-cliente" type="text" placeholder="Iniciais ou nome"></div>'+
+    '<div class="campo"><label>Área</label><div class="fichas" id="c-area">'+
+    '<button class="ficha" aria-pressed="true" data-v="Divórcio">Divórcio</button>'+
+    '<button class="ficha" aria-pressed="false" data-v="Inventário">Inventário</button>'+
+    '<button class="ficha" aria-pressed="false" data-v="Cível">Cível</button>'+
+    '<button class="ficha" aria-pressed="false" data-v="Consumidor">Consumidor</button>'+
+    '<button class="ficha" aria-pressed="false" data-v="Outro">Outro</button></div></div>'+
+    '<div class="campo"><label>Como vai receber</label><div class="fichas" id="c-forma">'+
+    '<button class="ficha" aria-pressed="true" data-v="avista">À vista</button>'+
+    '<button class="ficha" aria-pressed="false" data-v="entrada">Entrada + parcelas</button>'+
+    '<button class="ficha" aria-pressed="false" data-v="parcelado">Parcelado</button></div></div>'+
+    '<div id="c-plano" style="display:none"><div class="par">'+
+    '<div class="campo" id="c-box-ent"><label for="c-entrada">Entrada (R$)</label><input id="c-entrada" type="number" inputmode="decimal" min="0" step="0.01" placeholder="1500"></div>'+
+    '<div class="campo"><label for="c-parcelas">Parcelas</label><input id="c-parcelas" type="number" inputmode="numeric" min="1" max="36" value="3"></div></div></div>'+
+    '<div class="previa" id="c-previa">Recebimento à vista no mês da assinatura.</div>'+
+    '<p class="erro" id="c-erro"></p>'+
+    '<button class="b cheio" style="width:100%" id="c-salva">Salvar contrato</button>';
+  const grupo=id=>{const c=document.getElementById(id);c.onclick=e=>{const b=e.target.closest('.ficha');if(!b)return;
+    Array.prototype.forEach.call(c.children,x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');
+    if(id==='c-forma')ajusta();}};
+  grupo('c-area');grupo('c-forma');
+  const pego=id=>document.querySelector('#'+id+' .ficha[aria-pressed="true"]').dataset.v;
+  function ajusta(){const f=pego('c-forma');
+    document.getElementById('c-plano').style.display=f==='avista'?'none':'block';
+    document.getElementById('c-box-ent').style.display=f==='entrada'?'block':'none';previa()}
+  function previa(){
+    const f=pego('c-forma'),v=parseFloat(document.getElementById('c-valor').value)||0,
+          e=f==='entrada'?(parseFloat(document.getElementById('c-entrada').value)||0):0,
+          n=parseInt(document.getElementById('c-parcelas').value)||1,box=document.getElementById('c-previa');
+    if(!v){box.textContent='Informe o valor para ver a previsão de recebimento.';return}
+    if(f==='avista'){box.innerHTML='<b>'+brl(v)+'</b> no mês da assinatura.';return}
+    box.innerHTML=(e?'Entrada de <b>'+brl(e)+'</b> no mês da assinatura, depois ':'')+'<b>'+n+'x de '+brl((v-e)/n)+'</b> nos meses seguintes.';
+  }
+  ['c-valor','c-entrada','c-parcelas'].forEach(id=>document.getElementById(id).oninput=previa);
+  ajusta();
+  document.getElementById('c-salva').onclick=async()=>{
+    const data=document.getElementById('c-data').value,valor=parseFloat(document.getElementById('c-valor').value),
+          er=document.getElementById('c-erro'),bt=document.getElementById('c-salva'),f=pego('c-forma');
+    if(!data||isNaN(valor)||valor<=0){er.textContent='Informe a data da assinatura e o valor do contrato.';er.classList.add('on');return}
+    const entrada=f==='entrada'?(parseFloat(document.getElementById('c-entrada').value)||0):0;
+    if(entrada>valor){er.textContent='A entrada não pode ser maior que o valor do contrato.';er.classList.add('on');return}
+    bt.disabled=true;bt.textContent='Salvando…';
+    const ok=await gravarContrato({data,cliente:document.getElementById('c-cliente').value.trim(),area:pego('c-area'),
+      valor,forma:f,entrada,parcelas:f==='avista'?0:(parseInt(document.getElementById('c-parcelas').value)||1)});
+    bt.disabled=false;bt.textContent='Salvar contrato';
+    if(ok){fecha();await recarregar();toast('Contrato salvo.')}
+  };
+  abre();
+}
+
+document.querySelector('nav').onclick=e=>{
+  const b=e.target.closest('button[data-aba]');if(!b)return;
+  document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-selected','false'));
+  b.setAttribute('aria-selected','true');
+  document.querySelectorAll('.aba').forEach(s=>s.classList.remove('on'));
+  document.getElementById('ab-'+b.dataset.aba).classList.add('on');
+};
+document.querySelector('main').onclick=async e=>{
+  const ab=e.target.closest('[data-abre]');
+  if(ab){ab.dataset.abre==='mes'?formMes(ab.dataset.mes):formContrato();return}
+  const ap=e.target.closest('[data-apaga]');
+  if(ap){
+    if(!confirm('Apagar este contrato? Ele sai do faturamento do mês.'))return;
+    if(await apagarContrato(ap.dataset.apaga)){await recarregar();toast('Contrato apagado.')}
+  }
+};
+</script>
+</body>
+</html>
